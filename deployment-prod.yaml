@@ -10,7 +10,7 @@ spec:
   accessModes:
     - ReadWriteMany
   nfs:
-    path:  /srv/nfs/flohreh         #local reference
+    path:  /srv/nfs/babbam2
     server: 10.48.10.140
   persistentVolumeReclaimPolicy: Retain
 ---
@@ -46,7 +46,7 @@ spec:
     spec:
       containers:
         - name: flask
-          image: cithit/flohreh:latest
+          image: cithit/babbam2:latest
           ports:
             - containerPort: 5000
           volumeMounts:
@@ -63,7 +63,7 @@ metadata:
   name: flask-prod-service
 spec:
   type: LoadBalancer 
-  loadBalancerIP: 10.48.10.210                                  
+  loadBalancerIP: 10.48.10.206                                  
   ports:
   - protocol: TCP
     port: 80
