@@ -10,7 +10,7 @@ spec:
   accessModes:
     - ReadWriteMany
   nfs:
-    path:  /srv/nfs/flohreh         #your MiamiID
+    path:  /srv/nfs/babbam2
     server: 10.48.10.140
   persistentVolumeReclaimPolicy: Retain
 ---
@@ -46,7 +46,7 @@ spec:
     spec:
       containers:
         - name: flask
-          image: cithit/flohreh:latest    #your MiamiID
+          image: cithit/babbam2:latest  
           ports:
             - containerPort: 5000
           volumeMounts:
