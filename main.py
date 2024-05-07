@@ -28,15 +28,22 @@ def init_db():
 def index():
     message = ''  # Message indicating the result of the operation
     if request.method == 'POST':
-        name = request.form.get('name')
-        phone = request.form.get('phone')
-        if name and phone:
+        if 'delete' in request.form:
+            contact_id = request.form.get('delete')
             db = get_db()
-            db.execute('INSERT INTO contacts (name, phone) VALUES (?, ?)', (name, phone))
+            db.execute('DELETE FROM contacts WHERE id = ?', (contact_id,))
             db.commit()
-            message = 'Contact added successfully.'
+            message = 'Contact deleted successfully.'
         else:
-            message = 'Missing name or phone number.'
+            name = request.form.get('name')
+            phone = request.form.get('phone')
+            if name and phone:
+                db = get_db()
+                db.execute('INSERT INTO contacts (name, phone) VALUES (?, ?)', (name, phone))
+                db.commit()
+                message = 'Contact added successfully.'
+            else:
+                message = 'Missing name or phone number.'
 
     # Always display the contacts table
     db = get_db()
@@ -92,7 +99,7 @@ def index():
             text-align: center;
             margin-top: 20px;
         }
-        input[type="text"], input[type="submit"] {
+        input[type="text"], input[type="submit"], button {
             padding: 8px;
             margin: 5px;
         }
@@ -111,11 +118,17 @@ def index():
         <tr>
             <th>Name</th>
             <th>Phone Number</th>
+            <th>Action</th>
         </tr>
         {% for contact in contacts %}
         <tr>
             <td>{{ contact['name'] }}</td>
             <td>{{ contact['phone'] }}</td>
+            <td>
+                <form action="/" method="post">
+                    <button type="submit" name="delete" value="{{ contact['id'] }}">Delete</button>
+                </form>
+            </td>
         </tr>
         {% endfor %}
     </table>
