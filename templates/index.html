@@ -42,10 +42,25 @@
         tr:hover {
             background-color: #f2f2f2;
         }
+        form {
+            text-align: center;
+            margin-top: 20px;
+        }
+        input[type="text"], input[type="submit"] {
+            padding: 8px;
+            margin: 5px;
+        }
     </style>
 </head>
 <body>
     <h1>Welcome to the Dynamic Database Table!</h1>
+    <form action="/add_data" method="post">
+        <label for="id">ID:</label>
+        <input type="text" id="id" name="id">
+        <label for="data">Data:</label>
+        <input type="text" id="data" name="data">
+        <input type="submit" value="Add Data">
+    </form>
     <table>
         <tr>
             <th>ID</th>
@@ -60,4 +75,3 @@
     </table>
 </body>
 </html>
-
