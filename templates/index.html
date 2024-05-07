@@ -46,7 +46,7 @@
             text-align: center;
             margin-top: 20px;
         }
-        input[type="text"], input[type="submit"] {
+        input[type="text"], input[type="submit"], button {
             padding: 8px;
             margin: 5px;
         }
@@ -65,11 +65,17 @@
         <tr>
             <th>Name</th>
             <th>Phone Number</th>
+            <th>Action</th>
         </tr>
         {% for contact in contacts %}
         <tr>
             <td>{{ contact['name'] }}</td>
             <td>{{ contact['phone'] }}</td>
+            <td>
+                <form action="/" method="post">
+                    <button type="submit" name="delete" value="{{ contact['id'] }}">Delete</button>
+                </form>
+            </td>
         </tr>
         {% endfor %}
     </table>
