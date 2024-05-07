@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template_string, redirect, url_for
+from flask import Flask, request, render_template_string
 import sqlite3
 import os
 
@@ -28,23 +28,15 @@ def init_db():
 def index():
     message = ''  # Message indicating the result of the operation
     if request.method == 'POST':
-        # Check if it's a delete action
-        if request.form.get('action') == 'delete':
-            contact_id = request.form.get('contact_id')
+        name = request.form.get('name')
+        phone = request.form.get('phone')
+        if name and phone:
             db = get_db()
-            db.execute('DELETE FROM contacts WHERE id = ?', (contact_id,))
+            db.execute('INSERT INTO contacts (name, phone) VALUES (?, ?)', (name, phone))
             db.commit()
-            message = 'Contact deleted successfully.'
+            message = 'Contact added successfully.'
         else:
-            name = request.form.get('name')
-            phone = request.form.get('phone')
-            if name and phone:
-                db = get_db()
-                db.execute('INSERT INTO contacts (name, phone) VALUES (?, ?)', (name, phone))
-                db.commit()
-                message = 'Contact added successfully.'
-            else:
-                message = 'Missing name or phone number.'
+            message = 'Missing name or phone number.'
 
     # Always display the contacts table
     db = get_db()
@@ -56,7 +48,7 @@ def index():
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Dynamic Database Table</title>
+    <title>Contact Information</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -107,26 +99,29 @@ def index():
     </style>
 </head>
 <body>
-    <h1>Welcome to the Dynamic Database Table!</h1>
-    <form action="/add_data" method="post">
-        <label for="id">ID:</label>
-        <input type="text" id="id" name="id">
-        <label for="data">Data:</label>
-        <input type="text" id="data" name="data">
-        <input type="submit" value="Add Data">
+    <h1>Contact Information</h1>
+    <form action="/" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name">
+        <label for="phone">Phone Number:</label>
+        <input type="text" id="phone" name="phone">
+        <input type="submit" value="Add Contact">
     </form>
     <table>
         <tr>
-            <th>ID</th>
-            <th>Data</th>
+            <th>Name</th>
+            <th>Phone Number</th>
         </tr>
-        {% for row in rows %}
+        {% for contact in contacts %}
         <tr>
-            <td>{{ row[0] }}</td>
-            <td>{{ row[1] }}</td>
+            <td>{{ contact['name'] }}</td>
+            <td>{{ contact['phone'] }}</td>
         </tr>
         {% endfor %}
     </table>
+    {% if message %}
+    <p>{{ message }}</p>
+    {% endif %}
 </body>
 </html>
     ''', message=message, contacts=contacts)
