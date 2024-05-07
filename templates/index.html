@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Dynamic Database Table</title>
+    <title>Contact List</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -36,21 +36,54 @@
         tr:hover {
             background-color: #f2f2f2;
         }
+        form {
+            margin: 20px auto;
+            text-align: center;
+        }
+        input[type="text"], input[type="tel"] {
+            padding: 8px;
+            margin: 5px;
+        }
+        input[type="submit"] {
+            padding: 8px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .message {
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+        }
     </style>
 </head>
 <body>
-    <h1>Dynamic Database Table Contents</h1>
+    <h1>Contact List</h1>
+    
+    <!-- Form for adding a contact -->
+    <form action="/add_contact" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name">
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone">
+        <input type="submit" value="Add Contact">
+    </form>
+
+    <!-- Table for displaying contacts -->
     <table>
         <tr>
-            <th>ID</th>
-            <th>Data</th>
+            <th>Name</th>
+            <th>Phone Number</th>
         </tr>
-        {% for row in rows %}
-        <tr>
-            <td>{{ row[0] }}</td>
-            <td>{{ row[1] }}</td>
-        </tr>
-        {% endfor %}
+        <!-- Display contacts here -->
     </table>
+
+    <!-- Messages -->
+    <div class="message">Contact deleted successfully.</div>
+    <div class="message">No contacts found.</div>
 </body>
 </html>
