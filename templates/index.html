@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Dynamic Database Table</title>
+    <title>Contact Information</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -53,25 +53,28 @@
     </style>
 </head>
 <body>
-    <h1>Welcome to the Dynamic Database Table!</h1>
-    <form action="/add_data" method="post">
-        <label for="id">ID:</label>
-        <input type="text" id="id" name="id">
-        <label for="data">Data:</label>
-        <input type="text" id="data" name="data">
-        <input type="submit" value="Add Data">
+    <h1>Contact Information</h1>
+    <form action="/" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name">
+        <label for="phone">Phone Number:</label>
+        <input type="text" id="phone" name="phone">
+        <input type="submit" value="Add Contact">
     </form>
     <table>
         <tr>
-            <th>ID</th>
-            <th>Data</th>
+            <th>Name</th>
+            <th>Phone Number</th>
         </tr>
-        {% for row in rows %}
+        {% for contact in contacts %}
         <tr>
-            <td>{{ row[0] }}</td>
-            <td>{{ row[1] }}</td>
+            <td>{{ contact['name'] }}</td>
+            <td>{{ contact['phone'] }}</td>
         </tr>
         {% endfor %}
     </table>
+    {% if message %}
+    <p>{{ message }}</p>
+    {% endif %}
 </body>
 </html>
