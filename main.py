@@ -56,7 +56,7 @@ def index():
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Contact List</title>
+    <title>Dynamic Database Table</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -83,6 +83,12 @@ def index():
         }
         th {
             background-color: #f2f2f2;
+            color: #333;
+            text-transform: uppercase;
+        }
+        td {
+            background-color: #fff;
+            color: #666;
         }
         tr:nth-child(even) {
             background-color: #f9f9f9;
@@ -90,57 +96,25 @@ def index():
         tr:hover {
             background-color: #f2f2f2;
         }
-        form {
-            margin: 20px auto;
-            text-align: center;
-        }
-        input[type="text"], input[type="tel"] {
-            padding: 8px;
-            margin: 5px;
-        }
-        input[type="submit"] {
-            padding: 8px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        input[type="submit"]:hover {
-            background-color: #45a049;
-        }
-        .message {
-            text-align: center;
-            margin-top: 20px;
-            color: #333;
-        }
     </style>
 </head>
 <body>
-    <h1>Contact List</h1>
-    
-    <!-- Form for adding a contact -->
-    <form action="/add_contact" method="post">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name">
-        <label for="phone">Phone Number:</label>
-        <input type="tel" id="phone" name="phone">
-        <input type="submit" value="Add Contact">
-    </form>
-
-    <!-- Table for displaying contacts -->
+    <h1>Welcome to the Dynamic Database Table!</h1>
     <table>
         <tr>
-            <th>Name</th>
-            <th>Phone Number</th>
+            <th>ID</th>
+            <th>Data</th>
         </tr>
-        <!-- Display contacts here -->
+        {% for row in rows %}
+        <tr>
+            <td>{{ row[0] }}</td>
+            <td>{{ row[1] }}</td>
+        </tr>
+        {% endfor %}
     </table>
-
-    <!-- Messages -->
-    <div class="message">Contact deleted successfully.</div>
-    <div class="message">No contacts found.</div>
 </body>
 </html>
+
 
     ''', message=message, contacts=contacts)
 
