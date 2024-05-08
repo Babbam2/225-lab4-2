@@ -60,11 +60,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: flask-dev-service
-spec:                                   
+  name: flask-service
+spec:
+  type: LoadBalancer 
+  loadBalancerIP: 10.48.10.206                     
   ports:
   - protocol: TCP
-    port: 80  
+    port: 80
     targetPort: 5000
   selector:
     app: flask
